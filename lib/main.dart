@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: true,
           theme: ThemeData(
             fontFamily: 'Ubuntu',
+            textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
+            )),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 backgroundColor: Colors.transparent),
             inputDecorationTheme:

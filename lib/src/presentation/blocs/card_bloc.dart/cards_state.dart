@@ -7,13 +7,14 @@ class CardsState {
   final String titlecardToEditSaveText;
   final String descriptioncardToEditSaveText;
   final CardEntity? cardToEdit;
-  CardsState({
-    this.cards = const [],
-    this.selectedColorIndex = 1,
-    this.descriptioncardToEditSaveText = '',
-    this.titlecardToEditSaveText = '',
-    this.cardToEdit,
-  });
+  final bool isLoading;
+  CardsState(
+      {this.cards = const [],
+      this.selectedColorIndex = 1,
+      this.descriptioncardToEditSaveText = '',
+      this.titlecardToEditSaveText = '',
+      this.cardToEdit,
+      this.isLoading = false});
 
   /// [copyWith] es un metodo que retorna una nueva instancia del objeto con propiedades modificadas.
   CardsState copyWith({
@@ -22,6 +23,7 @@ class CardsState {
     String? titlecardToEditSaveText,
     String? descriptioncardToEditSaveText,
     CardEntity? cardToEdit,
+    bool? isLoading,
   }) =>
       CardsState(
           cards: cards ?? this.cards,
@@ -30,5 +32,6 @@ class CardsState {
               titlecardToEditSaveText ?? this.titlecardToEditSaveText,
           descriptioncardToEditSaveText: descriptioncardToEditSaveText ??
               this.descriptioncardToEditSaveText,
-          cardToEdit: cardToEdit ?? this.cardToEdit);
+          cardToEdit: cardToEdit ?? this.cardToEdit,
+          isLoading: isLoading ?? this.isLoading);
 }

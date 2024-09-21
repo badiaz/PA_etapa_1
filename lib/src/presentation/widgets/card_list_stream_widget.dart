@@ -21,11 +21,19 @@ class CardsListStreamWidget extends StatelessWidget {
         stream: cardsBloc.streamController,
         builder: (context, snapshot) {
           final state = snapshot.data ?? cardsBloc.currentState;
-          if (state.cards.isEmpty) {
+          if (state.isLoading) {
             return Center(
                 child: CircularProgressIndicator(
               color: AppColors.orangeCard,
             ));
+          }
+          if (state.cards.isEmpty) {
+            return const Center(
+              child: Text(
+                'Add new card',
+                style: TextStyle(color: Colors.grey, fontSize: 25.0),
+              ),
+            );
           }
           return GridView.builder(
             padding: EdgeInsets.only(

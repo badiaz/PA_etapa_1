@@ -3,17 +3,66 @@ import 'package:flutter/cupertino.dart';
 import 'package:tarjetas_app/src/di/dependency_provider.dart';
 import 'package:tarjetas_app/src/domain/entities/card_entity.dart';
 import 'package:tarjetas_app/src/presentation/blocs/card_bloc.dart/cards_bloc.dart';
+import 'package:tarjetas_app/src/utils/app_colors.dart';
 
 class TopActionsWidget extends StatelessWidget {
   const TopActionsWidget({super.key, required this.isDetailScreen, this.card});
   final bool isDetailScreen;
   final CardEntity? card;
 
+  Future<dynamic> _showDeleteDialog(BuildContext context) {
+    final CardsBloc cardsBloc = DependencyProvider.of(context).cardsBloc;
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.delete,
+              color: AppColors.orangeCard,
+              size: 40.0,
+            ),
+            const Text(
+              'Delete card?',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 20.0),
+            ),
+          ],
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          TextButton(
+            child: const Text(
+              'No',
+              style: TextStyle(color: Colors.black),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text(
+              'Yes',
+              style: TextStyle(color: AppColors.orangeCard),
+            ),
+            onPressed: () {
+              cardsBloc.deleteCard(card!);
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final CardsBloc cardsBloc = DependencyProvider.of(context).cardsBloc;
-
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.15,
       child: SafeArea(
@@ -64,8 +113,7 @@ class TopActionsWidget extends StatelessWidget {
                       tooltipText: 'Delete',
                       icon: CupertinoIcons.delete,
                       onPressed: () {
-                        cardsBloc.deleteCard(card!);
-                        Navigator.pop(context);
+                        _showDeleteDialog(context);
                       },
                     ),
                   ],

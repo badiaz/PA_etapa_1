@@ -37,8 +37,9 @@ class CardsBloc {
 
   /// Método para obtener las tarjetas usando el caso de uso
   Future<void> getCards() async {
+    _emitState(_currentState.copyWith(isLoading: true));
     final cards = await _getCardsUseCase.call();
-    _emitState(_currentState.copyWith(cards: cards));
+    _emitState(_currentState.copyWith(isLoading: false, cards: cards));
   }
 
   /// Añade una nueva tarjeta a la lista y emite los cambios.
@@ -52,7 +53,10 @@ class CardsBloc {
     card.colorIndex = _currentState.selectedColorIndex;
     final List<CardEntity> cardsListCopy = List.from(_currentState.cards);
     cardsListCopy.add(card);
-    _emitState(_currentState.copyWith(cards: cardsListCopy));
+    _emitState(_currentState.copyWith(
+        cards: cardsListCopy,
+        titlecardToEditSaveText: '',
+        descriptioncardToEditSaveText: ''));
   }
 
   /// Actualiza una tarjeta existente y emite los cambios.
@@ -71,7 +75,10 @@ class CardsBloc {
       _currentState.cards[index].description =
           _currentState.descriptioncardToEditSaveText;
       cardsListCopy[index] = updatedCard;
-      _emitState(_currentState.copyWith(cards: cardsListCopy));
+      _emitState(_currentState.copyWith(
+          cards: cardsListCopy,
+          titlecardToEditSaveText: '',
+          descriptioncardToEditSaveText: ''));
     }
   }
 
@@ -106,7 +113,7 @@ class CardsBloc {
   /// Emite el estado actual al stream y lo guarda como el estado actual.
   void _emitState(CardsState newState) {
     _currentState = newState;
-    _cardsController.sink.add(_currentState); // Emitir el estado actual
+    _cardsController.sink.add(_currentState);
   }
 
   /// Cierra el stream controller para prevenir fugas de memoria.

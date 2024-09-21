@@ -85,3 +85,8 @@ Este caso de uso encapsula la lógica para obtener las tarjetas desde el reposit
    flutter run --release 
    - Para modo debug: 
    flutter run 
+
+## Protopito UI
+
+La UI fue diseñada basa en este modelo 
+url: https://dribbble.com/shots/14588131-Reminder-List-Reminders-iOS-App-Design/attachments/6279145?mode=media
