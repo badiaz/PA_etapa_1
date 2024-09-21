@@ -109,7 +109,7 @@ class _FormNavbarWidgetState extends State<FormNavbarWidget> {
               color: AppColors.orangeCard,
             ),
             const Text(
-              'Debe llenar todos los campos',
+              'Please fill all fields',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             ),

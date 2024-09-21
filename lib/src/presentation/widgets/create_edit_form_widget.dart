@@ -47,7 +47,7 @@ class _CreateEditFormWidgetState extends State<CreateEditFormWidget> {
                 style: TextStyle(
                     fontSize: size.width * 0.1, fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
-                    hintText: 'Título...',
+                    hintText: 'Title...',
                     hintStyle: TextStyle(
                         fontSize: size.width * 0.1,
                         fontWeight: FontWeight.bold)),
@@ -55,29 +55,17 @@ class _CreateEditFormWidgetState extends State<CreateEditFormWidget> {
                   _title = value;
                   cardsBloc.updateTitleCardToSaveEdit(value);
                 },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingresa un título';
-                  }
-                  return null;
-                },
               ),
               TextFormField(
                 initialValue: _description,
                 maxLines: 14,
                 style: TextStyle(fontSize: size.width * 0.05),
                 decoration: InputDecoration(
-                    hintText: 'Descripción',
+                    hintText: 'Description',
                     hintStyle: TextStyle(fontSize: size.width * 0.05)),
                 onChanged: (value) {
                   _description = value;
                   cardsBloc.updateDescriptionCardToSaveEdit(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingresa una descripción';
-                  }
-                  return null;
                 },
               ),
             ],
